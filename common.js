@@ -65,16 +65,26 @@ function bottomNav(active){
   `);
 }
 
+function findValueByKey(profile, keyword){
+  let value = "";
+
+  Object.keys(profile || {}).forEach(function(key){
+    if(String(key).toLowerCase().includes(keyword.toLowerCase())){
+      value = profile[key];
+    }
+  });
+
+  return value;
+}
+
 function hasConsent(profile){
 
-  const consent =
-    profile["Consent to Share Profile Information"] ||
-    profile["I give permission to SaatPake to share my profile and contact details with interested members"] ||
-    "";
+  const consent = findValueByKey(profile, "consent");
 
   const status =
     profile["Status"] ||
-    "Pending";
+    findValueByKey(profile, "status") ||
+    "";
 
   return (
     String(consent).trim().toLowerCase() === "i agree" &&
