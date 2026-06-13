@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaatPake Register</title>
+<style>
+:root{--primary:#8B1E3F;--accent:#D4AF37;--bg:#FFF8F8;--text:#2C2C2C}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;user-select:none}
+input,select,textarea{user-select:text}
+body{background:var(--bg);color:var(--text);padding-bottom:80px}
+.header{height:64px;background:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(139,30,63,.12)}
+.header h1{font-size:24px;color:var(--primary);font-family:Georgia,serif}
+.form{padding:16px}
+.card{background:white;border-radius:22px;padding:16px;box-shadow:0 8px 22px rgba(139,30,63,.12)}
+.input{width:100%;height:50px;border:1px solid #ead7dc;border-radius:14px;padding:0 14px;margin-bottom:12px;font-weight:700;background:white}
+textarea.input{height:90px;padding-top:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{width:100%;height:54px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--primary),#5b1028);color:white;font-size:17px;font-weight:900;margin-top:8px}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;height:68px;background:white;display:flex;justify-content:space-around;align-items:center;box-shadow:0 -5px 20px rgba(139,30,63,.16);z-index:99;border-radius:22px 22px 0 0}
+.nav-item{text-decoration:none;color:#777;font-size:11px;text-align:center;width:20%}.nav-item span{display:block;font-size:22px;margin-bottom:3px}.nav-item.active{color:var(--primary);font-weight:bold}
+</style>
+</head>
+<body>
+
+<header class="header"><h1>Register Profile</h1></header>
+
+<section class="form">
+<div class="card">
+<input class="input" id="name" placeholder="Full Name">
+<div class="grid">
+<select class="input" id="gender"><option>Bride</option><option>Groom</option></select>
+<input class="input" id="age" type="number" placeholder="Age">
+</div>
+<div class="grid">
+<input class="input" id="height" placeholder="Height">
+<input class="input" id="district" placeholder="District">
+</div>
+<input class="input" id="education" placeholder="Education">
+<input class="input" id="profession" placeholder="Profession">
+<input class="input" id="phone" type="tel" maxlength="10" placeholder="Phone Number">
+<input class="input" id="img" placeholder="Photo URL">
+<textarea class="input" id="about" placeholder="About profile"></textarea>
+<button class="btn" onclick="saveProfile()">Submit Profile</button>
+</div>
+</section>
+
+<nav class="bottom-nav">
+  <a href="home.html" class="nav-item"><span>🏠</span>Home</a>
+  <a href="search.html" class="nav-item"><span>🔍</span>Search</a>
+  <a href="favourites.html" class="nav-item"><span>❤️</span>Favourites</a>
+  <a href="register.html" class="nav-item active"><span>➕</span>Register</a>
+  <a href="profile.html" class="nav-item"><span>👤</span>Profile</a>
+</nav>
+
+<script>
+function saveProfile(){
+let p={
+name:document.getElementById("name").value.trim(),
+gender:document.getElementById("gender").value,
+age:document.getElementById("age").value.trim(),
+height:document.getElementById("height").value.trim(),
+district:document.getElementById("district").value.trim(),
+education:document.getElementById("education").value.trim(),
+profession:document.getElementById("profession").value.trim(),
+phone:document.getElementById("phone").value.trim(),
+img:document.getElementById("img").value.trim() || "https://via.placeholder.com/400x500?text=SaatPake",
+about:document.getElementById("about").value.trim(),
+date:Date.now()
+};
+
+if(!p.name || !p.age || !p.phone){
+alert("Name age and phone required");
+return;
+}
+
+let profiles=JSON.parse(localStorage.getItem("saatpakeProfiles")||"[]");
+profiles.unshift(p);
+localStorage.setItem("saatpakeProfiles",JSON.stringify(profiles));
+localStorage.setItem("saatpakeMyProfile",JSON.stringify(p));
+alert("Profile submitted successfully");
+window.location.href="profile.html";
+}
+</script>
+
+</body>
+</html>
