@@ -318,8 +318,9 @@ async function loadNewMembers(){
       cache:"no-store"
     });
 
-    const profiles = await res.json();
-    const latest = profiles.slice(0,10);
+    const allData = await res.json();
+const profiles = getPublicProfiles(allData);
+const latest = profiles.slice(0,10);
 
     if(!latest.length){
       box.innerHTML = `<div class="loading">No profile found</div>`;
