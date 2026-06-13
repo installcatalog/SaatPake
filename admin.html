@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaatPake Admin</title>
+
+<style>
+:root{
+  --primary:#8B1E3F;
+  --accent:#D4AF37;
+  --bg:#FFF8F8;
+  --card:#FFFFFF;
+  --text:#2C2C2C;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  padding-bottom:30px;
+}
+
+.header{
+  height:65px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 18px rgba(139,30,63,.12);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header h1{
+  font-size:24px;
+  color:var(--primary);
+  font-family:Georgia,serif;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  padding:14px;
+}
+
+.stat-card{
+  background:white;
+  border-radius:18px;
+  padding:14px 8px;
+  text-align:center;
+  box-shadow:0 8px 22px rgba(139,30,63,.12);
+}
+
+.stat-card h2{
+  color:var(--primary);
+  font-size:24px;
+}
+
+.stat-card p{
+  font-size:12px;
+  font-weight:800;
+  color:#666;
+  margin-top:4px;
+}
+
+.section-title{
+  padding:10px 16px;
+  font-size:18px;
+  color:var(--primary);
+  font-weight:900;
+}
+
+.list{
+  padding:0 14px 18px;
+  display:grid;
+  gap:14px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:14px;
+  box-shadow:0 8px 22px rgba(139,30,63,.12);
+}
+
+.top{
+  display:flex;
+  gap:12px;
+}
+
+.photo{
+  width:82px;
+  height:96px;
+  border-radius:14px;
+  object-fit:cover;
+  background:#eee;
+  flex-shrink:0;
+}
+
+.info{
+  flex:1;
+}
+
+.name{
+  font-size:17px;
+  font-weight:900;
+  color:var(--primary);
+}
+
+.line{
+  font-size:13px;
+  color:#555;
+  margin-top:4px;
+  line-height:18px;
+}
+
+.pid{
+  display:inline-block;
+  background:#FFF3CF;
+  color:#7a4d00;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  margin-top:6px;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.actions button,
+.user-actions button{
+  border:none;
+  border-radius:12px;
+  padding:10px 6px;
+  font-weight:900;
+  font-size:12px;
+}
+
+.approve{background:#1f9d55;color:white}
+.reject{background:#d93025;color:white}
+.block{background:#333;color:white}
+.copy{background:#FFF3CF;color:#7a4d00}
+.welcome{background:var(--primary);color:white}
+
+.user-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
+
+.empty{
+  text-align:center;
+  padding:24px;
+  color:#777;
+  font-weight:900;
+  background:white;
+  border-radius:18px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <h1>SaatPake Admin</h1>
+</header>
+
+<section class="stats">
+  <div class="stat-card">
+    <h2 id="todayCount">0</h2>
+    <p>Today</p>
+  </div>
+
+  <div class="stat-card">
+    <h2 id="weekCount">0</h2>
+    <p>Last 7 Days</p>
+  </div>
+
+  <div class="stat-card">
+    <h2 id="allCount">0</h2>
+    <p>All Users</p>
+  </div>
+</section>
+
+<h2 class="section-title">Pending Profiles</h2>
+<section class="list" id="pendingList">
+  <div class="empty">Loading pending profiles...</div>
+</section>
+
+<h2 class="section-title">Latest New Users</h2>
+<section class="list" id="userList">
+  <div class="empty">Loading users...</div>
+</section>
+
+<script src="config.js"></script>
+<script src="common.js"></script>
+
+<script>
+let allProfiles = [];
+
+function getPhoto(profile){
+  return profile["Upload Your Recent Clear Photo (No Sunglasses)"] ||
+         profile["Upload your Clear Recent Pic (No Sunglass)"] ||
+         profile["Upload Your Recent Clear Photo"] ||
+         profile["Photo"] ||
+         CONFIG.DEFAULT_IMAGE;
+}
+
+function cleanGender(gender){
+  gender = String(gender || "");
+  if(gender.toLowerCase().includes("groom")) return "Groom";
+  if(gender.toLowerCase().includes("bride")) return "Bride";
+  if(gender.toLowerCase().includes("men")) return "Groom";
+  if(gender.toLowerCase().includes("women")) return "Bride";
+  return gender;
+}
+
+function getPhone(profile){
+  return profile["WhatsApp Number"] ||
+         profile["Whats App no"] ||
+         profile["Phone"] ||
+         "";
+}
+
+function parseDate(value){
+  const d = new Date(value);
+  if(!isNaN(d)) return d;
+  return null;
+}
+
+function isToday(date){
+  if(!date) return false;
+  const now = new Date();
+  return date.toDateString() === now.toDateString();
+}
+
+function isLast7Days(date){
+  if(!date) return false;
+  const now = new Date();
+  const diff = now - date;
+  return diff >= 0 && diff <= 7 * 24 * 60 * 60 * 1000;
+}
+
+async function loadAdmin(){
+  try{
+    const res = await fetch(CONFIG.API_URL + "?_=" + Date.now(), {
+      cache:"no-store"
+    });
+
+    allProfiles = await res.json();
+
+    updateStats();
+    renderPending();
+    renderUsers();
+
+  }catch(err){
+    document.getElementById("pendingList").innerHTML =
+      `<div class="empty">Admin data loading failed</div>`;
+  }
+}
+
+function updateStats(){
+  const today = allProfiles.filter(p => isToday(parseDate(p.Timestamp))).length;
+  const week = allProfiles.filter(p => isLast7Days(parseDate(p.Timestamp))).length;
+
+  document.getElementById("todayCount").innerText = today;
+  document.getElementById("weekCount").innerText = week;
+  document.getElementById("allCount").innerText = allProfiles.length;
+}
+
+function renderPending(){
+  const box = document.getElementById("pendingList");
+
+  const pending = allProfiles.filter(p =>
+    String(p.Status || "").trim().toLowerCase() === "pending"
+  );
+
+  if(!pending.length){
+    box.innerHTML = `<div class="empty">No pending profile</div>`;
+    return;
+  }
+
+  box.innerHTML = "";
+
+  pending.forEach(profile => {
+    box.innerHTML += createProfileCard(profile,true);
+  });
+}
+
+function renderUsers(){
+  const box = document.getElementById("userList");
+
+  const users = allProfiles.slice(0,20);
+
+  if(!users.length){
+    box.innerHTML = `<div class="empty">No user found</div>`;
+    return;
+  }
+
+  box.innerHTML = "";
+
+  users.forEach(profile => {
+    box.innerHTML += createProfileCard(profile,false);
+  });
+}
+
+function createProfileCard(profile,isPending){
+  const name = profile.Name || "SaatPake User";
+  const age = profile.Age || "";
+  const gender = cleanGender(profile.Gender);
+  const district = profile.District || "";
+  const profession = profile.Profession || "";
+  const status = profile.Status || "Pending";
+  const profileId = profile.ProfileID || "Not Assigned";
+  const phone = getPhone(profile);
+  const img = getPhoto(profile);
+
+  return `
+    <div class="card">
+      <div class="top">
+        <img class="photo" src="${img}" onerror="this.src='${CONFIG.DEFAULT_IMAGE}'">
+
+        <div class="info">
+          <div class="name">${name}</div>
+          <div class="line">${age} Years • ${gender}</div>
+          <div class="line">${district}</div>
+          <div class="line">${profession}</div>
+          <div class="line">Phone: ${phone || "Not found"}</div>
+          <div class="line">Status: ${status}</div>
+          <div class="pid">${profileId}</div>
+        </div>
+      </div>
+
+      ${isPending ? `
+      <div class="actions">
+        <button class="approve" onclick="updateStatus('${profileId}','Approved')">Approve</button>
+        <button class="reject" onclick="updateStatus('${profileId}','Rejected')">Reject</button>
+        <button class="block" onclick="updateStatus('${profileId}','Blocked')">Block</button>
+      </div>
+      ` : ""}
+
+      <div class="user-actions">
+        <button class="welcome" onclick="sendWelcome('${phone}','${name}','${profileId}')">Welcome Message</button>
+        <button class="copy" onclick="copyPhone('${phone}')">Copy Phone</button>
+      </div>
+    </div>
+  `;
+}
+
+async function updateStatus(profileId,status){
+  if(!profileId || profileId === "Not Assigned"){
+    alert("Profile ID missing");
+    return;
+  }
+
+  await fetch(CONFIG.API_URL,{
+    method:"POST",
+    mode:"no-cors",
+    headers:{
+      "Content-Type":"text/plain;charset=utf-8"
+    },
+    body:JSON.stringify({
+      action:"updateStatus",
+      profileId:profileId,
+      status:status
+    })
+  });
+
+  alert("Status updated to " + status);
+  setTimeout(loadAdmin,900);
+}
+
+function copyPhone(phone){
+  if(!phone){
+    alert("Phone number not found");
+    return;
+  }
+
+  navigator.clipboard.writeText(phone).then(function(){
+    alert("Phone copied: " + phone);
+  }).catch(function(){
+    alert("Copy failed. Number: " + phone);
+  });
+}
+
+function sendWelcome(phone,name,profileId){
+  if(!phone){
+    alert("Phone number not found");
+    return;
+  }
+
+  let cleanPhone = String(phone).replace(/\D/g,"");
+
+  if(cleanPhone.length === 10){
+    cleanPhone = "91" + cleanPhone;
+  }
+
+  const msg =
+`Hello ${name},
+
+Welcome to SaatPake.
+
+Your matrimony profile has been received successfully.
+
+Profile ID: ${profileId}
+
+After admin verification, your profile will be visible to interested members.
+
+Thank you,
+SaatPake`;
+
+  window.open(
+    `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,
+    "_blank"
+  );
+}
+
+loadAdmin();
+</script>
+
+</body>
+</html>
