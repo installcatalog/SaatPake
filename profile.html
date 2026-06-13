@@ -1,33 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SaatPake Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaatPake - Profile</title>
+
 <style>
-:root{--primary:#8B1E3F;--accent:#D4AF37;--bg:#FFF8F8;--text:#2C2C2C}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;user-select:none}
-body{background:var(--bg);color:var(--text);padding-bottom:80px}
-.header{height:64px;background:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(139,30,63,.12)}
-.header h1{font-size:24px;color:var(--primary);font-family:Georgia,serif}
-.wrap{padding:16px}
-.card{background:white;border-radius:22px;padding:16px;box-shadow:0 8px 22px rgba(139,30,63,.12);text-align:center}
-.avatar{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid var(--accent);background:#eee}
-.name{font-size:24px;color:var(--primary);font-weight:900;margin-top:12px}
-.info{font-size:14px;color:#555;margin-top:6px;line-height:24px}
-.status{display:inline-block;margin-top:12px;background:#fff3d0;color:#7a4d00;padding:8px 14px;border-radius:999px;font-weight:900;font-size:13px}
-.btn{width:100%;height:52px;border:none;border-radius:16px;background:var(--primary);color:white;font-weight:900;font-size:16px;margin-top:12px}
-.logout{background:#2C2C2C}
-.empty{text-align:center;font-weight:800;color:#777;padding:35px 10px}
-.bottom-nav{position:fixed;bottom:0;left:0;width:100%;height:68px;background:white;display:flex;justify-content:space-around;align-items:center;box-shadow:0 -5px 20px rgba(139,30,63,.16);z-index:99;border-radius:22px 22px 0 0}
-.nav-item{text-decoration:none;color:#777;font-size:11px;text-align:center;width:20%}.nav-item span{display:block;font-size:22px;margin-bottom:3px}.nav-item.active{color:var(--primary);font-weight:bold}
+:root{
+  --primary:#8B1E3F;
+  --accent:#D4AF37;
+  --bg:#FFF8F8;
+  --card:#FFFFFF;
+  --text:#2C2C2C;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  padding-bottom:85px;
+}
+
+.header{
+  height:65px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 18px rgba(139,30,63,.12);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header h1{
+  font-size:24px;
+  color:var(--primary);
+  font-family:Georgia,serif;
+}
+
+.wrap{
+  padding:16px;
+}
+
+.card{
+  background:white;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(139,30,63,.14);
+}
+
+.photo{
+  width:100%;
+  height:330px;
+  object-fit:cover;
+  background:#eee;
+}
+
+.info{
+  padding:16px;
+}
+
+.profile-id{
+  display:inline-block;
+  background:#FFF3CF;
+  color:#7a4d00;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.name{
+  font-size:26px;
+  color:var(--primary);
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.line{
+  font-size:14px;
+  color:#555;
+  margin-bottom:8px;
+  line-height:22px;
+}
+
+.label{
+  font-weight:900;
+  color:var(--primary);
+}
+
+.btn{
+  width:100%;
+  height:52px;
+  border:none;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:900;
+  margin-top:12px;
+}
+
+.contact-btn{
+  background:linear-gradient(135deg,var(--primary),#5b1028);
+  color:white;
+}
+
+.fav-btn{
+  background:white;
+  color:var(--primary);
+  border:2px solid var(--accent);
+}
+
+.empty{
+  text-align:center;
+  padding:40px 20px;
+  font-weight:900;
+  color:#777;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:68px;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -5px 20px rgba(139,30,63,.16);
+  z-index:200;
+  border-radius:22px 22px 0 0;
+}
+
+.nav-item{
+  text-decoration:none;
+  color:#777;
+  font-size:11px;
+  text-align:center;
+  width:20%;
+}
+
+.nav-item span{
+  display:block;
+  font-size:22px;
+  margin-bottom:3px;
+}
+
+.nav-item.active{
+  color:var(--primary);
+  font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
-<header class="header"><h1>My Profile</h1></header>
+<header class="header">
+  <h1>Profile Details</h1>
+</header>
 
 <section class="wrap">
-<div class="card" id="profileBox"></div>
+  <div id="profileBox"></div>
 </section>
 
 <nav class="bottom-nav">
@@ -38,51 +181,126 @@ body{background:var(--bg);color:var(--text);padding-bottom:80px}
   <a href="profile.html" class="nav-item active"><span>👤</span>Profile</a>
 </nav>
 
-<script>
-function loadProfile(){
-let user=localStorage.getItem("saatpakeUser") || "Guest";
-let phone=localStorage.getItem("saatpakeUserPhone") || "";
-let p=JSON.parse(localStorage.getItem("saatpakeMyProfile")||"null");
-let box=document.getElementById("profileBox");
-
-if(!p){
-box.innerHTML=`
-<div class="empty">
-No full profile created yet
-<br><br>
-Logged in as ${user}
-<br>${phone}
-</div>
-<button class="btn" onclick="location.href='register.html'">Create Profile</button>
-<button class="btn logout" onclick="logout()">Logout</button>`;
-return;
-}
-
-box.innerHTML=`
-<img class="avatar" src="${p.img}">
-<div class="name">${p.name}</div>
-<div class="info">
-${p.age} Years • ${p.gender}<br>
-${p.height || ""}<br>
-${p.district}<br>
-${p.education}<br>
-${p.profession}<br>
-${p.phone}
-</div>
-<div class="status">Pending Approval</div>
-<button class="btn" onclick="location.href='register.html'">Edit Profile</button>
-<button class="btn logout" onclick="logout()">Logout</button>
-`;
-}
-
-function logout(){
-localStorage.removeItem("saatpakeUser");
-localStorage.removeItem("saatpakeUserPhone");
-window.location.href="index.html";
-}
-loadProfile();
-</script>
 <script src="config.js"></script>
 <script src="common.js"></script>
+
+<script>
+function getPhoto(profile){
+  return profile["Upload Your Recent Clear Photo (No Sunglasses)"] ||
+         profile["Upload your Clear Recent Pic (No Sunglass)"] ||
+         profile["Upload Your Recent Clear Photo"] ||
+         profile["Photo"] ||
+         CONFIG.DEFAULT_IMAGE;
+}
+
+function cleanGender(gender){
+  gender = String(gender || "");
+  if(gender.toLowerCase().includes("groom")) return "Groom";
+  if(gender.toLowerCase().includes("bride")) return "Bride";
+  if(gender.toLowerCase().includes("men")) return "Groom";
+  if(gender.toLowerCase().includes("women")) return "Bride";
+  return gender;
+}
+
+function val(profile,key){
+  return profile[key] || "Not mentioned";
+}
+
+function loadProfile(){
+  const box = document.getElementById("profileBox");
+  const profile = JSON.parse(localStorage.getItem("selectedProfile") || "null");
+
+  if(!profile){
+    box.innerHTML = `
+      <div class="card">
+        <div class="empty">
+          No profile selected<br><br>
+          Please open a profile from Home or Search page
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  const img = getPhoto(profile);
+  const profileId = profile.ProfileID || "Not Assigned";
+  const name = profile.Name || "SaatPake User";
+  const gender = cleanGender(profile.Gender);
+
+  box.innerHTML = `
+    <div class="card">
+      <img class="photo" src="${img}" onerror="this.src='${CONFIG.DEFAULT_IMAGE}'">
+
+      <div class="info">
+        <div class="profile-id">Profile ID: ${profileId}</div>
+
+        <div class="name">${name}</div>
+
+        <div class="line"><span class="label">Age:</span> ${val(profile,"Age")} Years</div>
+        <div class="line"><span class="label">Gender:</span> ${gender}</div>
+        <div class="line"><span class="label">Marital Status:</span> ${val(profile,"Marital Status")}</div>
+        <div class="line"><span class="label">Height:</span> ${val(profile,"Height")}</div>
+        <div class="line"><span class="label">Religion:</span> ${val(profile,"Religion")}</div>
+        <div class="line"><span class="label">Caste:</span> ${val(profile,"Caste")}</div>
+        <div class="line"><span class="label">Education:</span> ${val(profile,"Education")}</div>
+        <div class="line"><span class="label">Profession:</span> ${val(profile,"Profession")}</div>
+        <div class="line"><span class="label">Profession Details:</span> ${val(profile,"If Employed, Choose Profession Details. Otherwise, Skip This Section.")}</div>
+        <div class="line"><span class="label">Monthly Income:</span> ${val(profile,"Monthly Income")}</div>
+        <div class="line"><span class="label">District:</span> ${val(profile,"District")}</div>
+        <div class="line"><span class="label">Police Station:</span> ${val(profile,"Location (Write your Police station)")}</div>
+
+        <button class="btn contact-btn" onclick="getContactDetails()">Get Contact Details</button>
+        <button class="btn fav-btn" onclick="addFavourite()">❤️ Add to Favourites</button>
+      </div>
+    </div>
+  `;
+}
+
+function getContactDetails(){
+  const profile = JSON.parse(localStorage.getItem("selectedProfile") || "null");
+  if(!profile){
+    alert("No profile selected");
+    return;
+  }
+
+  const msg =
+`Hello Admin,
+
+I am interested in this SaatPake profile.
+
+Profile ID: ${profile.ProfileID || "Not Assigned"}
+Name: ${profile.Name || ""}
+Age: ${profile.Age || ""}
+Gender: ${cleanGender(profile.Gender)}
+District: ${profile.District || ""}
+
+Please share contact details.`;
+
+  const url = `https://wa.me/${CONFIG.ADMIN_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  window.open(url,"_blank");
+}
+
+function addFavourite(){
+  const profile = JSON.parse(localStorage.getItem("selectedProfile") || "null");
+  if(!profile){
+    alert("No profile selected");
+    return;
+  }
+
+  let favs = JSON.parse(localStorage.getItem("saatpakeFavs") || "[]");
+
+  if(favs.find(p => p.ProfileID === profile.ProfileID)){
+    alert("Already added to favourites");
+    return;
+  }
+
+  favs.push(profile);
+  localStorage.setItem("saatpakeFavs", JSON.stringify(favs));
+  alert("Added to favourites");
+}
+
+loadProfile();
+</script>
+
 </body>
 </html>
