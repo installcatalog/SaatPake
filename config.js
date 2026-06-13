@@ -5,9 +5,9 @@ const CONFIG = {
   PRIMARY_COLOR: "#8B1E3F",
   ACCENT_COLOR: "#D4AF37",
 
-  API_URL: "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE",
+  API_URL: "https://script.google.com/macros/s/AKfycbytk7HWfrg7LbBEKtidJp3dq2ViWtsNDvtY6ABjFs1ZhV9oHjvSBOBY4viSzSi8pfYakw/exec",
 
-  ADMIN_WHATSAPP: "91XXXXXXXXXX",
+  ADMIN_WHATSAPP: "919836697502",
 
   HOME_PAGE: "home.html",
   LOGIN_PAGE: "index.html",
