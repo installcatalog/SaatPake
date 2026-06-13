@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,9 +35,6 @@ body{
   align-items:center;
   justify-content:center;
   box-shadow:0 4px 18px rgba(139,30,63,.12);
-  position:sticky;
-  top:0;
-  z-index:100;
 }
 
 .header h1{
@@ -46,26 +44,28 @@ body{
 }
 
 .hero{
-  padding:20px 16px 10px;
+  padding:40px 20px 20px;
   text-align:center;
 }
 
 .hero h2{
   color:var(--primary);
-  margin-bottom:8px;
+  font-size:30px;
+  margin-bottom:12px;
 }
 
 .hero p{
   color:#666;
-  line-height:22px;
+  font-size:15px;
+  line-height:24px;
 }
 
 .notice{
-  margin:12px 16px;
+  margin:16px;
   background:#fff;
   border-left:5px solid var(--accent);
   border-radius:16px;
-  padding:14px;
+  padding:16px;
   box-shadow:0 8px 22px rgba(139,30,63,.08);
 }
 
@@ -73,18 +73,42 @@ body{
   color:var(--primary);
 }
 
-.form-box{
-  margin:14px 16px;
+.register-card{
   background:#fff;
-  border-radius:20px;
-  overflow:hidden;
+  margin:20px 16px;
+  padding:30px 20px;
+  border-radius:22px;
+  text-align:center;
   box-shadow:0 8px 22px rgba(139,30,63,.12);
 }
 
-.form-box iframe{
+.register-card h3{
+  color:var(--primary);
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+.register-card p{
+  color:#666;
+  margin-bottom:25px;
+  line-height:22px;
+}
+
+.register-btn{
   width:100%;
-  height:2300px;
+  height:56px;
   border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--primary),#b83a5d);
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(139,30,63,.25);
+}
+
+.register-btn:active{
+  transform:scale(.98);
 }
 
 .bottom-nav{
@@ -98,7 +122,6 @@ body{
   justify-content:space-around;
   align-items:center;
   box-shadow:0 -5px 20px rgba(139,30,63,.16);
-  z-index:200;
   border-radius:22px 22px 0 0;
 }
 
@@ -132,7 +155,7 @@ body{
 <section class="hero">
   <h2>Create Your Matrimony Profile</h2>
   <p>
-    Register your profile and connect with genuine marriage seekers.
+    Register your profile and connect with genuine marriage seekers across SaatPake.
   </p>
 </section>
 
@@ -141,16 +164,24 @@ body{
   Your profile will be reviewed by admin before being published on SaatPake.
 </div>
 
-<div class="form-box">
+<div class="register-card">
 
-<iframe
-src="https://docs.google.com/forms/d/e/1FAIpQLScMdYoX1Gw0Rk1oAJFuEspbuIw5OzBlbq_8K1RtVZBQ8QGxOw/viewform?embedded=true">
-Loading...
-</iframe>
+  <h3>Join SaatPake Today</h3>
+
+  <p>
+    Complete your registration form and create your matrimonial profile in a few simple steps.
+  </p>
+
+  <button
+    class="register-btn"
+    onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScMdYoX1Gw0Rk1oAJFuEspbuIw5OzBlbq_8K1RtVZBQ8QGxOw/viewform','_blank')">
+    Create My Profile
+  </button>
 
 </div>
 
 <nav class="bottom-nav">
+
   <a href="home.html" class="nav-item">
     <span>🏠</span>Home
   </a>
@@ -170,6 +201,7 @@ Loading...
   <a href="profile.html" class="nav-item">
     <span>👤</span>Profile
   </a>
+
 </nav>
 
 <script src="config.js"></script>
@@ -177,3 +209,4 @@ Loading...
 
 </body>
 </html>
+```
