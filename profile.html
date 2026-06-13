@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaatPake Profile</title>
+<style>
+:root{--primary:#8B1E3F;--accent:#D4AF37;--bg:#FFF8F8;--text:#2C2C2C}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;user-select:none}
+body{background:var(--bg);color:var(--text);padding-bottom:80px}
+.header{height:64px;background:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(139,30,63,.12)}
+.header h1{font-size:24px;color:var(--primary);font-family:Georgia,serif}
+.wrap{padding:16px}
+.card{background:white;border-radius:22px;padding:16px;box-shadow:0 8px 22px rgba(139,30,63,.12);text-align:center}
+.avatar{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid var(--accent);background:#eee}
+.name{font-size:24px;color:var(--primary);font-weight:900;margin-top:12px}
+.info{font-size:14px;color:#555;margin-top:6px;line-height:24px}
+.status{display:inline-block;margin-top:12px;background:#fff3d0;color:#7a4d00;padding:8px 14px;border-radius:999px;font-weight:900;font-size:13px}
+.btn{width:100%;height:52px;border:none;border-radius:16px;background:var(--primary);color:white;font-weight:900;font-size:16px;margin-top:12px}
+.logout{background:#2C2C2C}
+.empty{text-align:center;font-weight:800;color:#777;padding:35px 10px}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;height:68px;background:white;display:flex;justify-content:space-around;align-items:center;box-shadow:0 -5px 20px rgba(139,30,63,.16);z-index:99;border-radius:22px 22px 0 0}
+.nav-item{text-decoration:none;color:#777;font-size:11px;text-align:center;width:20%}.nav-item span{display:block;font-size:22px;margin-bottom:3px}.nav-item.active{color:var(--primary);font-weight:bold}
+</style>
+</head>
+<body>
+
+<header class="header"><h1>My Profile</h1></header>
+
+<section class="wrap">
+<div class="card" id="profileBox"></div>
+</section>
+
+<nav class="bottom-nav">
+  <a href="home.html" class="nav-item"><span>🏠</span>Home</a>
+  <a href="search.html" class="nav-item"><span>🔍</span>Search</a>
+  <a href="favourites.html" class="nav-item"><span>❤️</span>Favourites</a>
+  <a href="register.html" class="nav-item"><span>➕</span>Register</a>
+  <a href="profile.html" class="nav-item active"><span>👤</span>Profile</a>
+</nav>
+
+<script>
+function loadProfile(){
+let user=localStorage.getItem("saatpakeUser") || "Guest";
+let phone=localStorage.getItem("saatpakeUserPhone") || "";
+let p=JSON.parse(localStorage.getItem("saatpakeMyProfile")||"null");
+let box=document.getElementById("profileBox");
+
+if(!p){
+box.innerHTML=`
+<div class="empty">
+No full profile created yet
+<br><br>
+Logged in as ${user}
+<br>${phone}
+</div>
+<button class="btn" onclick="location.href='register.html'">Create Profile</button>
+<button class="btn logout" onclick="logout()">Logout</button>`;
+return;
+}
+
+box.innerHTML=`
+<img class="avatar" src="${p.img}">
+<div class="name">${p.name}</div>
+<div class="info">
+${p.age} Years • ${p.gender}<br>
+${p.height || ""}<br>
+${p.district}<br>
+${p.education}<br>
+${p.profession}<br>
+${p.phone}
+</div>
+<div class="status">Pending Approval</div>
+<button class="btn" onclick="location.href='register.html'">Edit Profile</button>
+<button class="btn logout" onclick="logout()">Logout</button>
+`;
+}
+
+function logout(){
+localStorage.removeItem("saatpakeUser");
+localStorage.removeItem("saatpakeUserPhone");
+window.location.href="index.html";
+}
+loadProfile();
+</script>
+
+</body>
+</html>
