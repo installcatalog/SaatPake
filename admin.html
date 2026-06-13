@@ -6,171 +6,45 @@
 <title>SaatPake Admin</title>
 
 <style>
-:root{
-  --primary:#8B1E3F;
-  --accent:#D4AF37;
-  --bg:#FFF8F8;
-  --card:#FFFFFF;
-  --text:#2C2C2C;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  padding-bottom:30px;
-}
-
-.header{
-  height:65px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 4px 18px rgba(139,30,63,.12);
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-
-.header h1{
-  font-size:24px;
-  color:var(--primary);
-  font-family:Georgia,serif;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  padding:14px;
-}
-
-.stat-card{
-  background:white;
-  border-radius:18px;
-  padding:14px 8px;
-  text-align:center;
-  box-shadow:0 8px 22px rgba(139,30,63,.12);
-}
-
-.stat-card h2{
-  color:var(--primary);
-  font-size:24px;
-}
-
-.stat-card p{
-  font-size:12px;
-  font-weight:800;
-  color:#666;
-  margin-top:4px;
-}
-
-.section-title{
-  padding:10px 16px;
-  font-size:18px;
-  color:var(--primary);
-  font-weight:900;
-}
-
-.list{
-  padding:0 14px 18px;
-  display:grid;
-  gap:14px;
-}
-
-.card{
-  background:white;
-  border-radius:20px;
-  padding:14px;
-  box-shadow:0 8px 22px rgba(139,30,63,.12);
-}
-
-.top{
-  display:flex;
-  gap:12px;
-}
-
-.photo{
-  width:82px;
-  height:96px;
-  border-radius:14px;
-  object-fit:cover;
-  background:#eee;
-  flex-shrink:0;
-}
-
-.info{
-  flex:1;
-}
-
-.name{
-  font-size:17px;
-  font-weight:900;
-  color:var(--primary);
-}
-
-.line{
-  font-size:13px;
-  color:#555;
-  margin-top:4px;
-  line-height:18px;
-}
-
-.pid{
-  display:inline-block;
-  background:#FFF3CF;
-  color:#7a4d00;
-  padding:5px 9px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:900;
-  margin-top:6px;
-}
-
-.actions{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:12px;
-}
-
-.actions button,
-.user-actions button{
-  border:none;
-  border-radius:12px;
-  padding:10px 6px;
-  font-weight:900;
-  font-size:12px;
-}
-
+:root{--primary:#8B1E3F;--accent:#D4AF37;--bg:#FFF8F8;--card:#fff;--text:#2C2C2C}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:var(--bg);color:var(--text);padding-bottom:30px}
+.header{height:65px;background:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(139,30,63,.12);position:sticky;top:0;z-index:100}
+.header h1{font-size:24px;color:var(--primary);font-family:Georgia,serif}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
+.stat-card{background:white;border-radius:18px;padding:14px 8px;text-align:center;box-shadow:0 8px 22px rgba(139,30,63,.12)}
+.stat-card h2{color:var(--primary);font-size:24px}
+.stat-card p{font-size:12px;font-weight:800;color:#666;margin-top:4px}
+.section-title{padding:10px 16px;font-size:18px;color:var(--primary);font-weight:900}
+.list{padding:0 14px 18px;display:grid;gap:14px}
+.card{background:white;border-radius:20px;padding:14px;box-shadow:0 8px 22px rgba(139,30,63,.12)}
+.top{display:flex;gap:12px}
+.photo{width:82px;height:96px;border-radius:14px;object-fit:cover;background:#eee;flex-shrink:0}
+.info{flex:1}
+.name{font-size:17px;font-weight:900;color:var(--primary)}
+.line{font-size:13px;color:#555;margin-top:4px;line-height:18px}
+.pid{display:inline-block;background:#FFF3CF;color:#7a4d00;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:900;margin-top:6px}
+.actions,.more-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.more-actions{grid-template-columns:repeat(2,1fr)}
+button{border:none;border-radius:12px;padding:10px 6px;font-weight:900;font-size:12px}
 .approve{background:#1f9d55;color:white}
 .reject{background:#d93025;color:white}
 .block{background:#333;color:white}
+.view{background:var(--primary);color:white}
+.edit{background:var(--accent);color:#3b2500}
 .copy{background:#FFF3CF;color:#7a4d00}
-.welcome{background:var(--primary);color:white}
+.welcome{background:#8B1E3F;color:white}
+.empty{text-align:center;padding:24px;color:#777;font-weight:900;background:white;border-radius:18px}
 
-.user-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:12px;
-}
-
-.empty{
-  text-align:center;
-  padding:24px;
-  color:#777;
-  font-weight:900;
-  background:white;
-  border-radius:18px;
-}
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:9999;padding:14px}
+.popup.active{display:flex}
+.popup-box{width:100%;max-width:520px;max-height:88vh;overflow:auto;background:white;border-radius:24px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.popup-title{font-size:22px;font-weight:900;color:var(--primary);text-align:center;margin-bottom:12px}
+.detail-row{font-size:14px;line-height:22px;padding:8px 0;border-bottom:1px solid #f0e0e4}
+.detail-row b{color:var(--primary)}
+.input{width:100%;height:46px;border:1px solid #ead7dc;border-radius:12px;padding:0 12px;margin-bottom:10px;font-weight:700}
+.close-btn{width:100%;height:48px;background:#333;color:white;margin-top:12px}
+.save-btn{width:100%;height:48px;background:var(--primary);color:white;margin-top:8px}
 </style>
 </head>
 
@@ -181,20 +55,9 @@ body{
 </header>
 
 <section class="stats">
-  <div class="stat-card">
-    <h2 id="todayCount">0</h2>
-    <p>Today</p>
-  </div>
-
-  <div class="stat-card">
-    <h2 id="weekCount">0</h2>
-    <p>Last 7 Days</p>
-  </div>
-
-  <div class="stat-card">
-    <h2 id="allCount">0</h2>
-    <p>All Users</p>
-  </div>
+  <div class="stat-card"><h2 id="todayCount">0</h2><p>Today</p></div>
+  <div class="stat-card"><h2 id="weekCount">0</h2><p>Last 7 Days</p></div>
+  <div class="stat-card"><h2 id="allCount">0</h2><p>All Users</p></div>
 </section>
 
 <h2 class="section-title">Pending Profiles</h2>
@@ -207,11 +70,43 @@ body{
   <div class="empty">Loading users...</div>
 </section>
 
+<div class="popup" id="viewPopup">
+  <div class="popup-box">
+    <div class="popup-title">Full Profile</div>
+    <div id="viewContent"></div>
+    <button class="close-btn" onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<div class="popup" id="editPopup">
+  <div class="popup-box">
+    <div class="popup-title">Edit Profile</div>
+
+    <input class="input" id="editProfileId" readonly>
+    <input class="input" id="editName" placeholder="Name">
+    <input class="input" id="editAge" placeholder="Age">
+    <input class="input" id="editHeight" placeholder="Height">
+    <input class="input" id="editReligion" placeholder="Religion">
+    <input class="input" id="editCaste" placeholder="Caste">
+    <input class="input" id="editEducation" placeholder="Education">
+    <input class="input" id="editProfession" placeholder="Profession">
+    <input class="input" id="editProfessionDetails" placeholder="Profession Details">
+    <input class="input" id="editIncome" placeholder="Income">
+    <input class="input" id="editDistrict" placeholder="District">
+    <input class="input" id="editLocation" placeholder="Police Station">
+    <input class="input" id="editWhatsApp" placeholder="WhatsApp Number">
+
+    <button class="save-btn" onclick="saveEdit()">Save Changes</button>
+    <button class="close-btn" onclick="closePopup()">Close</button>
+  </div>
+</div>
+
 <script src="config.js"></script>
 <script src="common.js"></script>
 
 <script>
 let allProfiles = [];
+let editingProfile = null;
 
 function getPhoto(profile){
   return profile["Upload Your Recent Clear Photo (No Sunglasses)"] ||
@@ -237,6 +132,18 @@ function getPhone(profile){
          "";
 }
 
+function getProfessionDetails(profile){
+  return profile["If Employed, Choose Profession Details. Otherwise, Skip This Section."] ||
+         profile["Profession Details"] ||
+         "";
+}
+
+function getLocation(profile){
+  return profile["Location (Write your Police station)"] ||
+         profile["Police Station"] ||
+         "";
+}
+
 function parseDate(value){
   const d = new Date(value);
   if(!isNaN(d)) return d;
@@ -245,23 +152,18 @@ function parseDate(value){
 
 function isToday(date){
   if(!date) return false;
-  const now = new Date();
-  return date.toDateString() === now.toDateString();
+  return date.toDateString() === new Date().toDateString();
 }
 
 function isLast7Days(date){
   if(!date) return false;
-  const now = new Date();
-  const diff = now - date;
+  const diff = new Date() - date;
   return diff >= 0 && diff <= 7 * 24 * 60 * 60 * 1000;
 }
 
 async function loadAdmin(){
   try{
-    const res = await fetch(CONFIG.API_URL + "?_=" + Date.now(), {
-      cache:"no-store"
-    });
-
+    const res = await fetch(CONFIG.API_URL + "?_=" + Date.now(), {cache:"no-store"});
     allProfiles = await res.json();
 
     updateStats();
@@ -275,11 +177,12 @@ async function loadAdmin(){
 }
 
 function updateStats(){
-  const today = allProfiles.filter(p => isToday(parseDate(p.Timestamp))).length;
-  const week = allProfiles.filter(p => isLast7Days(parseDate(p.Timestamp))).length;
+  document.getElementById("todayCount").innerText =
+    allProfiles.filter(p => isToday(parseDate(p.Timestamp))).length;
 
-  document.getElementById("todayCount").innerText = today;
-  document.getElementById("weekCount").innerText = week;
+  document.getElementById("weekCount").innerText =
+    allProfiles.filter(p => isLast7Days(parseDate(p.Timestamp))).length;
+
   document.getElementById("allCount").innerText = allProfiles.length;
 }
 
@@ -295,16 +198,11 @@ function renderPending(){
     return;
   }
 
-  box.innerHTML = "";
-
-  pending.forEach(profile => {
-    box.innerHTML += createProfileCard(profile,true);
-  });
+  box.innerHTML = pending.map(p => createProfileCard(p,true)).join("");
 }
 
 function renderUsers(){
   const box = document.getElementById("userList");
-
   const users = allProfiles.slice(0,20);
 
   if(!users.length){
@@ -312,11 +210,7 @@ function renderUsers(){
     return;
   }
 
-  box.innerHTML = "";
-
-  users.forEach(profile => {
-    box.innerHTML += createProfileCard(profile,false);
-  });
+  box.innerHTML = users.map(p => createProfileCard(p,false)).join("");
 }
 
 function createProfileCard(profile,isPending){
@@ -334,7 +228,6 @@ function createProfileCard(profile,isPending){
     <div class="card">
       <div class="top">
         <img class="photo" src="${img}" onerror="this.src='${CONFIG.DEFAULT_IMAGE}'">
-
         <div class="info">
           <div class="name">${name}</div>
           <div class="line">${age} Years • ${gender}</div>
@@ -351,10 +244,11 @@ function createProfileCard(profile,isPending){
         <button class="approve" onclick="updateStatus('${profileId}','Approved')">Approve</button>
         <button class="reject" onclick="updateStatus('${profileId}','Rejected')">Reject</button>
         <button class="block" onclick="updateStatus('${profileId}','Blocked')">Block</button>
-      </div>
-      ` : ""}
+      </div>` : ""}
 
-      <div class="user-actions">
+      <div class="more-actions">
+        <button class="view" onclick='viewFullProfile(${JSON.stringify(profile)})'>View Full Profile</button>
+        <button class="edit" onclick='openEdit(${JSON.stringify(profile)})'>Edit Profile</button>
         <button class="welcome" onclick="sendWelcome('${phone}','${name}','${profileId}')">Welcome Message</button>
         <button class="copy" onclick="copyPhone('${phone}')">Copy Phone</button>
       </div>
@@ -362,18 +256,93 @@ function createProfileCard(profile,isPending){
   `;
 }
 
-async function updateStatus(profileId,status){
-  if(!profileId || profileId === "Not Assigned"){
-    alert("Profile ID missing");
-    return;
-  }
+function viewFullProfile(profile){
+  const box = document.getElementById("viewContent");
+
+  box.innerHTML = `
+    <img src="${getPhoto(profile)}" style="width:100%;height:280px;object-fit:cover;border-radius:18px;background:#eee" onerror="this.src='${CONFIG.DEFAULT_IMAGE}'">
+
+    <div class="detail-row"><b>Profile ID:</b> ${profile.ProfileID || ""}</div>
+    <div class="detail-row"><b>Name:</b> ${profile.Name || ""}</div>
+    <div class="detail-row"><b>Gender:</b> ${cleanGender(profile.Gender)}</div>
+    <div class="detail-row"><b>Marital Status:</b> ${profile["Marital Status"] || ""}</div>
+    <div class="detail-row"><b>Age:</b> ${profile.Age || ""}</div>
+    <div class="detail-row"><b>Height:</b> ${profile.Height || ""}</div>
+    <div class="detail-row"><b>Religion:</b> ${profile.Religion || ""}</div>
+    <div class="detail-row"><b>Caste:</b> ${profile.Caste || ""}</div>
+    <div class="detail-row"><b>Education:</b> ${profile.Education || ""}</div>
+    <div class="detail-row"><b>Profession:</b> ${profile.Profession || ""}</div>
+    <div class="detail-row"><b>Profession Details:</b> ${getProfessionDetails(profile)}</div>
+    <div class="detail-row"><b>Income:</b> ${profile["Income per Month"] || profile["Monthly Income"] || ""}</div>
+    <div class="detail-row"><b>District:</b> ${profile.District || ""}</div>
+    <div class="detail-row"><b>Police Station:</b> ${getLocation(profile)}</div>
+    <div class="detail-row"><b>WhatsApp:</b> ${getPhone(profile)}</div>
+    <div class="detail-row"><b>Consent:</b> ${profile["Consent to Share Profile Information"] || ""}</div>
+    <div class="detail-row"><b>Status:</b> ${profile.Status || ""}</div>
+  `;
+
+  document.getElementById("viewPopup").classList.add("active");
+}
+
+function openEdit(profile){
+  editingProfile = profile;
+
+  document.getElementById("editProfileId").value = profile.ProfileID || "";
+  document.getElementById("editName").value = profile.Name || "";
+  document.getElementById("editAge").value = profile.Age || "";
+  document.getElementById("editHeight").value = profile.Height || "";
+  document.getElementById("editReligion").value = profile.Religion || "";
+  document.getElementById("editCaste").value = profile.Caste || "";
+  document.getElementById("editEducation").value = profile.Education || "";
+  document.getElementById("editProfession").value = profile.Profession || "";
+  document.getElementById("editProfessionDetails").value = getProfessionDetails(profile);
+  document.getElementById("editIncome").value = profile["Income per Month"] || profile["Monthly Income"] || "";
+  document.getElementById("editDistrict").value = profile.District || "";
+  document.getElementById("editLocation").value = getLocation(profile);
+  document.getElementById("editWhatsApp").value = getPhone(profile);
+
+  document.getElementById("editPopup").classList.add("active");
+}
+
+async function saveEdit(){
+  const profileId = document.getElementById("editProfileId").value;
+
+  const updates = {
+    Name: document.getElementById("editName").value,
+    Age: document.getElementById("editAge").value,
+    Height: document.getElementById("editHeight").value,
+    Religion: document.getElementById("editReligion").value,
+    Caste: document.getElementById("editCaste").value,
+    Education: document.getElementById("editEducation").value,
+    Profession: document.getElementById("editProfession").value,
+    "If Employed, Choose Profession Details. Otherwise, Skip This Section.": document.getElementById("editProfessionDetails").value,
+    "Income per Month": document.getElementById("editIncome").value,
+    District: document.getElementById("editDistrict").value,
+    "Location (Write your Police station)": document.getElementById("editLocation").value,
+    "WhatsApp Number": document.getElementById("editWhatsApp").value
+  };
 
   await fetch(CONFIG.API_URL,{
     method:"POST",
     mode:"no-cors",
-    headers:{
-      "Content-Type":"text/plain;charset=utf-8"
-    },
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify({
+      action:"updateProfile",
+      profileId:profileId,
+      updates:updates
+    })
+  });
+
+  alert("Profile updated");
+  closePopup();
+  setTimeout(loadAdmin,900);
+}
+
+async function updateStatus(profileId,status){
+  await fetch(CONFIG.API_URL,{
+    method:"POST",
+    mode:"no-cors",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
     body:JSON.stringify({
       action:"updateStatus",
       profileId:profileId,
@@ -385,30 +354,21 @@ async function updateStatus(profileId,status){
   setTimeout(loadAdmin,900);
 }
 
-function copyPhone(phone){
-  if(!phone){
-    alert("Phone number not found");
-    return;
-  }
+function closePopup(){
+  document.getElementById("viewPopup").classList.remove("active");
+  document.getElementById("editPopup").classList.remove("active");
+}
 
-  navigator.clipboard.writeText(phone).then(function(){
-    alert("Phone copied: " + phone);
-  }).catch(function(){
-    alert("Copy failed. Number: " + phone);
-  });
+function copyPhone(phone){
+  if(!phone){alert("Phone number not found");return}
+  navigator.clipboard.writeText(phone).then(() => alert("Phone copied: " + phone));
 }
 
 function sendWelcome(phone,name,profileId){
-  if(!phone){
-    alert("Phone number not found");
-    return;
-  }
+  if(!phone){alert("Phone number not found");return}
 
   let cleanPhone = String(phone).replace(/\D/g,"");
-
-  if(cleanPhone.length === 10){
-    cleanPhone = "91" + cleanPhone;
-  }
+  if(cleanPhone.length === 10){cleanPhone = "91" + cleanPhone}
 
   const msg =
 `Hello ${name},
@@ -424,10 +384,7 @@ After admin verification, your profile will be visible to interested members.
 Thank you,
 SaatPake`;
 
-  window.open(
-    `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,
-    "_blank"
-  );
+  window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
 loadAdmin();
