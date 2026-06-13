@@ -3,51 +3,261 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SaatPake Search</title>
+<title>SaatPake - Search</title>
+
 <style>
-:root{--primary:#8B1E3F;--accent:#D4AF37;--bg:#FFF8F8;--card:#fff;--text:#2C2C2C}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
-input,select,textarea{user-select:text;-webkit-user-select:text}
-body{background:var(--bg);color:var(--text);padding-bottom:80px}
-.header{height:64px;background:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(139,30,63,.12);position:sticky;top:0;z-index:9}
-.header h1{font-size:24px;color:var(--primary);font-family:Georgia,serif}
-.box{padding:16px}
-.search-card{background:white;border-radius:18px;padding:14px;box-shadow:0 8px 22px rgba(139,30,63,.12)}
-.input{width:100%;height:48px;border:1px solid #ead7dc;border-radius:14px;padding:0 14px;margin-bottom:10px;font-weight:700}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.profile-list{padding:16px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(139,30,63,.12)}
-.card img{width:100%;height:165px;object-fit:cover;background:#eee}
-.info{padding:10px}
-.info h3{font-size:15px;color:var(--primary);margin-bottom:4px}
-.info p{font-size:12px;color:#555;margin-bottom:3px}
-.btn{width:100%;border:none;background:var(--primary);color:white;padding:9px;border-radius:12px;font-weight:900;margin-top:7px}
-.fav{background:var(--accent);color:#3b2500}
-.bottom-nav{position:fixed;bottom:0;left:0;width:100%;height:68px;background:white;display:flex;justify-content:space-around;align-items:center;box-shadow:0 -5px 20px rgba(139,30,63,.16);z-index:99;border-radius:22px 22px 0 0}
-.nav-item{text-decoration:none;color:#777;font-size:11px;text-align:center;width:20%}
-.nav-item span{display:block;font-size:22px;margin-bottom:3px}
-.nav-item.active{color:var(--primary);font-weight:bold}
+:root{
+  --primary:#8B1E3F;
+  --accent:#D4AF37;
+  --bg:#FFF8F8;
+  --card:#FFFFFF;
+  --text:#2C2C2C;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+}
+
+input,select{
+  user-select:text;
+  -webkit-user-select:text;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  padding-bottom:85px;
+}
+
+.header{
+  height:65px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 18px rgba(139,30,63,0.12);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header h1{
+  font-size:24px;
+  color:var(--primary);
+  font-family:Georgia,serif;
+}
+
+.search-box{
+  padding:14px;
+}
+
+.search-card{
+  background:white;
+  border-radius:20px;
+  padding:14px;
+  box-shadow:0 8px 22px rgba(139,30,63,0.12);
+}
+
+.search-input{
+  width:100%;
+  height:48px;
+  border:1px solid #ead7dc;
+  border-radius:14px;
+  padding:0 14px;
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:12px;
+  outline:none;
+}
+
+.filter-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.filter-grid select{
+  width:100%;
+  height:46px;
+  border:1px solid #ead7dc;
+  border-radius:14px;
+  padding:0 10px;
+  font-weight:700;
+  background:white;
+  color:var(--text);
+  outline:none;
+}
+
+.result-title{
+  padding:4px 16px 10px;
+  color:var(--primary);
+  font-size:17px;
+  font-weight:900;
+}
+
+.profile-list{
+  padding:0 14px 20px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.profile-card{
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 22px rgba(139,30,63,0.12);
+}
+
+.profile-card img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  background:#eee;
+}
+
+.profile-info{
+  padding:10px;
+}
+
+.profile-info h3{
+  font-size:15px;
+  color:var(--primary);
+  margin-bottom:4px;
+}
+
+.profile-info p{
+  font-size:12px;
+  color:#555;
+  margin-bottom:3px;
+}
+
+.view-btn{
+  margin-top:8px;
+  width:100%;
+  border:none;
+  background:var(--primary);
+  color:white;
+  padding:9px;
+  border-radius:12px;
+  font-weight:900;
+}
+
+.loading{
+  grid-column:1/-1;
+  text-align:center;
+  padding:28px;
+  color:#777;
+  font-weight:900;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:68px;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -5px 20px rgba(139,30,63,0.16);
+  z-index:200;
+  border-radius:22px 22px 0 0;
+}
+
+.nav-item{
+  text-decoration:none;
+  color:#777;
+  font-size:11px;
+  text-align:center;
+  width:20%;
+}
+
+.nav-item span{
+  display:block;
+  font-size:22px;
+  margin-bottom:3px;
+}
+
+.nav-item.active{
+  color:var(--primary);
+  font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
-<header class="header"><h1>Search Profiles</h1></header>
+<header class="header">
+  <h1>Search Profiles</h1>
+</header>
 
-<div class="box">
+<section class="search-box">
   <div class="search-card">
-    <input class="input" id="searchText" placeholder="Search by name district profession" oninput="loadProfiles()">
-    <div class="filters">
-      <select class="input" id="genderFilter" onchange="loadProfiles()">
-        <option value="">All</option><option>Bride</option><option>Groom</option>
+
+    <input
+      class="search-input"
+      id="searchText"
+      placeholder="Search by name district profession"
+      oninput="applyFilters()"
+    >
+
+    <div class="filter-grid">
+      <select id="genderFilter" onchange="applyFilters()">
+        <option value="">All Gender</option>
+        <option value="Bride">Bride</option>
+        <option value="Groom">Groom</option>
       </select>
-      <select class="input" id="ageFilter" onchange="loadProfiles()">
-        <option value="">Age</option><option value="18-25">18-25</option><option value="26-30">26-30</option><option value="31-40">31-40</option>
+
+      <select id="ageFilter" onchange="applyFilters()">
+        <option value="">All Age</option>
+        <option value="18-23">18 - 23</option>
+        <option value="24-29">24 - 29</option>
+        <option value="30-35">30 - 35</option>
+        <option value="36-40">36 - 40</option>
+        <option value="41-45">41 - 45</option>
+        <option value="46-50">46 - 50</option>
+        <option value="50+">50+</option>
+      </select>
+
+      <select id="districtFilter" onchange="applyFilters()">
+        <option value="">All District</option>
+        <option>Kolkata</option>
+        <option>South 24 Parganas</option>
+        <option>North 24 Parganas</option>
+        <option>Howrah</option>
+        <option>Hooghly</option>
+        <option>Nadia</option>
+        <option>Murshidabad</option>
+        <option>Others</option>
+      </select>
+
+      <select id="religionFilter" onchange="applyFilters()">
+        <option value="">All Religion</option>
+        <option>Hindu</option>
+        <option>Muslim</option>
+        <option>Christian</option>
+        <option>Sikh</option>
+        <option>Buddhist</option>
+        <option>Others</option>
       </select>
     </div>
-  </div>
-</div>
 
-<section class="profile-list" id="profileList"></section>
+  </div>
+</section>
+
+<div class="result-title" id="resultTitle">Latest Profiles</div>
+
+<section class="profile-list" id="profileList">
+  <div class="loading">Loading profiles...</div>
+</section>
 
 <nav class="bottom-nav">
   <a href="home.html" class="nav-item"><span>🏠</span>Home</a>
@@ -57,55 +267,165 @@ body{background:var(--bg);color:var(--text);padding-bottom:80px}
   <a href="profile.html" class="nav-item"><span>👤</span>Profile</a>
 </nav>
 
-<script>
-const demo=[
-{name:"Ananya Das",age:25,gender:"Bride",district:"Kolkata",profession:"Teacher",img:"https://via.placeholder.com/400x500?text=Bride"},
-{name:"Rahul Sen",age:29,gender:"Groom",district:"Howrah",profession:"Engineer",img:"https://via.placeholder.com/400x500?text=Groom"},
-{name:"Priya Roy",age:24,gender:"Bride",district:"Hooghly",profession:"Nurse",img:"https://via.placeholder.com/400x500?text=Bride"},
-{name:"Subhojit Dey",age:31,gender:"Groom",district:"Kolkata",profession:"Govt Job",img:"https://via.placeholder.com/400x500?text=Groom"}
-];
-
-function getProfiles(){
-return JSON.parse(localStorage.getItem("saatpakeProfiles")||"[]").concat(demo);
-}
-
-function saveFav(p){
-let favs=JSON.parse(localStorage.getItem("saatpakeFavs")||"[]");
-if(!favs.find(x=>x.name===p.name)){favs.push(p)}
-localStorage.setItem("saatpakeFavs",JSON.stringify(favs));
-alert("Added to favourites");
-}
-
-function loadProfiles(){
-let text=document.getElementById("searchText").value.toLowerCase();
-let gender=document.getElementById("genderFilter").value;
-let age=document.getElementById("ageFilter").value;
-let list=document.getElementById("profileList");
-let data=getProfiles().filter(p=>{
-let ok=true;
-if(text) ok=(p.name+p.district+p.profession).toLowerCase().includes(text);
-if(gender) ok=ok && p.gender===gender;
-if(age){
-let [a,b]=age.split("-").map(Number);
-ok=ok && Number(p.age)>=a && Number(p.age)<=b;
-}
-return ok;
-});
-list.innerHTML=data.map((p,i)=>`
-<div class="card">
-<img src="${p.img}">
-<div class="info">
-<h3>${p.name}</h3>
-<p>${p.age} Years • ${p.gender}</p>
-<p>${p.district}</p>
-<p>${p.profession}</p>
-<button class="btn fav" onclick='saveFav(${JSON.stringify(p)})'>Favourite</button>
-</div>
-</div>`).join("");
-}
-loadProfiles();
-</script>
 <script src="config.js"></script>
 <script src="common.js"></script>
+
+<script>
+let allProfiles = [];
+
+function getPhoto(profile){
+  return profile["Upload Your Recent Clear Photo (No Sunglasses)"] ||
+         profile["Upload your Clear Recent Pic (No Sunglass)"] ||
+         profile["Upload Your Recent Clear Photo"] ||
+         profile["Photo"] ||
+         CONFIG.DEFAULT_IMAGE;
+}
+
+function cleanGender(gender){
+  gender = String(gender || "");
+  if(gender.toLowerCase().includes("groom")) return "Groom";
+  if(gender.toLowerCase().includes("bride")) return "Bride";
+  if(gender.toLowerCase().includes("men")) return "Groom";
+  if(gender.toLowerCase().includes("women")) return "Bride";
+  return gender;
+}
+
+function getAge(profile){
+  return Number(profile.Age || 0);
+}
+
+function matchAge(age, range){
+  if(!range) return true;
+
+  if(range === "50+"){
+    return age > 50;
+  }
+
+  const parts = range.split("-");
+  const min = Number(parts[0]);
+  const max = Number(parts[1]);
+
+  return age >= min && age <= max;
+}
+
+async function loadProfiles(){
+  const box = document.getElementById("profileList");
+  box.innerHTML = `<div class="loading">Loading profiles...</div>`;
+
+  try{
+    const res = await fetch(CONFIG.API_URL + "?_=" + Date.now(), {
+      cache:"no-store"
+    });
+
+    allProfiles = await res.json();
+
+    const genderFromHome = localStorage.getItem("searchGender");
+
+    if(genderFromHome){
+      document.getElementById("genderFilter").value = genderFromHome;
+      localStorage.removeItem("searchGender");
+    }
+
+    applyFilters();
+
+  }catch(error){
+    box.innerHTML = `<div class="loading">Profile loading failed</div>`;
+  }
+}
+
+function applyFilters(){
+  const text = document.getElementById("searchText").value.toLowerCase().trim();
+  const gender = document.getElementById("genderFilter").value;
+  const ageRange = document.getElementById("ageFilter").value;
+  const district = document.getElementById("districtFilter").value;
+  const religion = document.getElementById("religionFilter").value;
+
+  let result = allProfiles.filter(profile => {
+    const profileGender = cleanGender(profile.Gender);
+    const age = getAge(profile);
+    const profileDistrict = String(profile.District || "");
+    const profileReligion = String(profile.Religion || "");
+
+    const searchText =
+      String(profile.Name || "") + " " +
+      String(profile.District || "") + " " +
+      String(profile.Profession || "") + " " +
+      String(profile.Religion || "") + " " +
+      String(profile.Caste || "");
+
+    let ok = true;
+
+    if(text){
+      ok = searchText.toLowerCase().includes(text);
+    }
+
+    if(gender){
+      ok = ok && profileGender === gender;
+    }
+
+    if(ageRange){
+      ok = ok && matchAge(age, ageRange);
+    }
+
+    if(district){
+      ok = ok && profileDistrict === district;
+    }
+
+    if(religion){
+      ok = ok && profileReligion === religion;
+    }
+
+    return ok;
+  });
+
+  renderProfiles(result);
+}
+
+function renderProfiles(profiles){
+  const box = document.getElementById("profileList");
+  const title = document.getElementById("resultTitle");
+
+  title.innerText = profiles.length + " Profile Found";
+
+  if(!profiles.length){
+    box.innerHTML = `<div class="loading">No matching profile found</div>`;
+    return;
+  }
+
+  box.innerHTML = "";
+
+  profiles.forEach(profile => {
+    const name = profile.Name || "SaatPake User";
+    const age = profile.Age || "";
+    const gender = cleanGender(profile.Gender);
+    const district = profile.District || "";
+    const religion = profile.Religion || "";
+    const profession = profile.Profession || "";
+    const img = getPhoto(profile);
+
+    box.innerHTML += `
+      <div class="profile-card">
+        <img src="${img}" alt="${name}" onerror="this.src='${CONFIG.DEFAULT_IMAGE}'">
+        <div class="profile-info">
+          <h3>${name}</h3>
+          <p>${age} Years • ${gender}</p>
+          <p>${district}</p>
+          <p>${religion}</p>
+          <p>${profession}</p>
+          <button class="view-btn" onclick='saveAndView(${JSON.stringify(profile)})'>View Profile</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function saveAndView(profile){
+  localStorage.setItem("selectedProfile", JSON.stringify(profile));
+  window.location.href = "profile.html";
+}
+
+loadProfiles();
+</script>
+
 </body>
 </html>
