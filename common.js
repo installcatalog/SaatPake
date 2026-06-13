@@ -64,3 +64,17 @@ function bottomNav(active){
     </nav>
   `);
 }
+function hasConsent(profile){
+  const value =
+    profile["Consent to Share Profile Information"] ||
+    profile["I give permission to SaatPake to share my profile and contact details with interested members"] ||
+    "";
+
+  return String(value).trim().toLowerCase() === "i agree";
+}
+
+function getPublicProfiles(profiles){
+  return profiles.filter(function(profile){
+    return hasConsent(profile);
+  });
+}
