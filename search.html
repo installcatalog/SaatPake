@@ -317,7 +317,8 @@ async function loadProfiles(){
       cache:"no-store"
     });
 
-    allProfiles = await res.json();
+    const allData = await res.json();
+allProfiles = getPublicProfiles(allData);
 
     const genderFromHome = localStorage.getItem("searchGender");
 
