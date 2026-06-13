@@ -78,18 +78,9 @@ function findValueByKey(profile, keyword){
 }
 
 function hasConsent(profile){
+  const text = JSON.stringify(profile || {}).toLowerCase();
 
-  const consent = findValueByKey(profile, "consent");
-
-  const status =
-    profile["Status"] ||
-    findValueByKey(profile, "status") ||
-    "";
-
-  return (
-    String(consent).trim().toLowerCase() === "i agree" &&
-    String(status).trim().toLowerCase() === "approved"
-  );
+  return text.includes("i agree");
 }
 
 function getPublicProfiles(profiles){
